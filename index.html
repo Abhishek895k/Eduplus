@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Education Website - Home</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <h1>Education Website</h1>
+      <div class="navbar-toggle" onclick="toggleNavbar()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="nav-links">
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="index.html">Choose Subject</a>
+      </div>
+      <div class="nav-links-mobile" id="mobile-menu">
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="index.html">Choose Subject</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="container">
+    <h1>Welcome to Our Education Website</h1>
+    <p>Select a subject to begin:</p>
+    <button class="subject-button" onclick="window.location.href='maths.html'">Maths</button>
+    <button class="subject-button" onclick="window.location.href='english.html'">English</button>
+    <button class="subject-button" onclick="window.location.href='reasoning.html'">Reasoning</button>
+    <button class="subject-button" onclick="window.location.href='general_studies.html'">General Studies</button>
+  </div>
+
+  <footer>
+    <p>&copy; 2024 Education Website | Designed with ❤️</p>
+  </footer>
+
+  <script>
+    function toggleNavbar() {
+      const mobileMenu = document.getElementById('mobile-menu');
+      if (mobileMenu.style.display === 'flex') {
+        mobileMenu.style.display = 'none';
+      } else {
+        mobileMenu.style.display = 'flex';
+      }
+    }
+  </script>
+</body>
+</html>
