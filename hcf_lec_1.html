@@ -3,196 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fullscreen YouTube Video</title>
-    <style><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fullscreen YouTube Video with Orientation Change</title>
+    <title>Embedded YouTube Video</title>
     <style>
         /* Body styling */
         body {
             font-family: Arial, sans-serif;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #f0f0f0;
+            background-color:black;
         }
 
-        /* Video box container */
-        .video-box {
-            width: 700px;
-            height: 400px;
-            background-color: #000;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            position: relative;
+        /* Container to hold the video */
+        .video-container {
+            width: 700px; /* Fixed width for desktops */
+            height: 400px; /* Fixed height for desktops */
+            border-radius: 15px; /* Rounded corners */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Optional: shadow effect */
+        }
+
+        /* Make iframe responsive on smaller devices */
+        .video-container iframe {
+            width: 100%;
+            height: 100%;
+            border-radius: 15px; /* Rounded corners for iframe */
         }
 
         /* Responsive design for smaller screens */
         @media (max-width: 768px) {
-            .video-box {
-                width: 100%;
+            .video-container {
+                width: 100%; /* Make video take up full width */
                 height: auto;
-                aspect-ratio: 16 / 9; /* Maintain 16:9 ratio */
+                padding-bottom: 56.25%; /* Maintain 16:9 aspect ratio */
+                position: relative;
             }
-        }
 
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* Button styling */
-        .fullscreen-btn {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 16px;
-            color: #fff;
-            background-color: #007bff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .fullscreen-btn:hover {
-            background-color: green;
+            .video-container iframe {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
         }
     </style>
 </head>
 <body>
 
-
-    <!-- Video box -->
-    <div class="video-box" id="videoBox">
-        <iframe src="https://www.youtube.com/embed/714n4DjOSe4?rel=0&modestbranding=1" 
+    
+    
+    <!-- Video container -->
+    <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/714n4DjOSe4?rel=0" 
+                frameborder="0" 
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen 
-                playsinline>
+                allowfullscreen>
         </iframe>
     </div>
-
-    <!-- Fullscreen button -->
-    <button class="fullscreen-btn" onclick="makeFullscreen()">Make Fullscreen</button>
-
-    <script>
-        // Function to make the video container fullscreen and change orientation to landscape
-        function makeFullscreen() {
-            const videoBox = document.getElementById('videoBox');
-
-            // Request fullscreen for the video container
-            if (videoBox.requestFullscreen) {
-                videoBox.requestFullscreen();
-            } else if (videoBox.webkitRequestFullscreen) { // Safari
-                videoBox.webkitRequestFullscreen();
-            } else if (videoBox.msRequestFullscreen) { // IE/Edge
-                videoBox.msRequestFullscreen();
-            }
-
-            // Change screen orientation to landscape (if supported)
-            if (screen.orientation && screen.orientation.lock) {
-                screen.orientation.lock("landscape").catch((error) => {
-                    console.error("Orientation lock failed:", error);
-                });
-            }
-        }
-    </script>
-
-</body>
-</html>
-
-        /* Body styling */
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: black;
-        }
-
-        /* Video box container */
-        .video-box {
-            width: 700px;
-            height: 400px;
-            background-color: #000;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            position: relative;
-        }
-
-        /* Responsive design for smaller screens */
-        @media (max-width: 768px) {
-            .video-box {
-                width: 100%;
-                height: auto;
-                aspect-ratio: 16 / 9; /* Maintain 16:9 ratio */
-            }
-        }
-
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* Button styling */
-        .fullscreen-btn {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 16px;
-            color: #fff;
-            background-color: #007bff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .fullscreen-btn:hover {
-            background-color: #0056b3;
-        }
-    </style>
-</head>
-<body>
-
-    <h1>Watch the Video</h1>
-
-    <!-- Video box -->
-    <div class="video-box" id="videoBox">
-        <iframe src="https://www.youtube.com/embed/714n4DjOSe4?rel=0&modestbranding=1" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen 
-                playsinline>
-        </iframe>
-    </div>
-
-    <!-- Fullscreen button -->
-    <button class="fullscreen-btn" onclick="toggleFullscreen()">Make Fullscreen</button>
-
-    <script>
-        /* JavaScript to toggle fullscreen for the video box */
-        function toggleFullscreen() {
-            const videoBox = document.getElementById('videoBox');
-            if (videoBox.requestFullscreen) {
-                videoBox.requestFullscreen();
-            } else if (videoBox.webkitRequestFullscreen) { // Safari
-                videoBox.webkitRequestFullscreen();
-            } else if (videoBox.msRequestFullscreen) { // IE/Edge
-                videoBox.msRequestFullscreen();
-            }
-        }
-    </script>
 
 </body>
 </html>
