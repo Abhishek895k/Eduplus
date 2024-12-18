@@ -9,7 +9,7 @@
 <body>
   <header>
     <nav>
-      <h1>Education Website</h1>
+      <h1>EDUPLUS</h1>
       <div class="navbar-toggle" onclick="toggleNavbar()">
         <span></span>
         <span></span>
@@ -29,7 +29,7 @@
   </header>
 
   <div class="container">
-    <h1>Welcome to Our Education Website</h1>
+    <h2>Welcome to Our Education Website</h2>
     <p>Select a subject to begin:</p>
     <button class="subject-button" onclick="window.location.href='maths.html'">Maths</button>
     <button class="subject-button" onclick="window.location.href='english.html'">English</button>
@@ -37,9 +37,7 @@
     <button class="subject-button" onclick="window.location.href='general_studies.html'">General Studies</button>
   </div>
 
-  <footer>
-    <p>&copy; 2024 Education Website | Designed with ❤️</p>
-  </footer>
+  
 
   <script>
     function toggleNavbar() {
@@ -50,6 +48,13 @@
         mobileMenu.style.display = 'flex';
       }
     }
+   
+  function toggleNavbar() {
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileMenu.classList.toggle('active'); // Add or remove 'active' class to show/hide the menu
+  }
+
+
   </script>
 </body>
 </html>
