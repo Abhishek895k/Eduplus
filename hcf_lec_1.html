@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Embedded YouTube Video</title>
     <style>
         /* Body styling */
@@ -13,7 +13,7 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color:black;
+            background-color: #f0f0f0;
         }
 
         /* Container to hold the video */
@@ -56,10 +56,11 @@
 
     <!-- Video container -->
     <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/714n4DjOSe4?rel=0" 
+        <iframe src="https://www.youtube.com/embed/714n4DjOSe4?rel=0&modestbranding=1" 
                 frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen>
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+                allowfullscreen
+                playsinline>
         </iframe>
     </div>
 
