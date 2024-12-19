@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Embedded YouTube Video</title>
+    <title>Fullscreen and Rotate Video</title>
     <style>
         /* Body styling */
         body {
@@ -19,11 +19,13 @@
 
         /* Container to hold the video */
         .video-container {
-            width: 700px; /* Fixed width for desktops */
-            height: 400px; /* Fixed height for desktops */
+            width: 700px; /* Default width for desktops */
+            height: 400px; /* Default height for desktops */
             border-radius: 15px; /* Rounded corners */
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Optional: shadow effect */
-            transition: transform 0.5s ease; /* Smooth transition for rotation */
+            transition: all 0.5s ease; /* Smooth transition for resizing and rotation */
+            background: black;
+            position: relative;
         }
 
         /* Make iframe responsive on smaller devices */
@@ -31,24 +33,6 @@
             width: 100%;
             height: 100%;
             border-radius: 15px; /* Rounded corners for iframe */
-        }
-
-        /* Responsive design for smaller screens */
-        @media (max-width: 768px) {
-            .video-container {
-                width: 100%; /* Make video take up full width */
-                height: auto;
-                padding-bottom: 56.25%; /* Maintain 16:9 aspect ratio */
-                position: relative;
-            }
-
-            .video-container iframe {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-            }
         }
 
         /* Rotate button */
@@ -81,19 +65,39 @@
     </div>
 
     <!-- Rotate button -->
-    <button class="rotate-button" onclick="rotateVideo()">Rotate 90°</button>
+    <button class="rotate-button" onclick="rotateAndResize()">Rotate and Fullscreen</button>
 
     <script>
-        // Track the current rotation angle
+        let isFullscreen = false;
         let currentRotation = 0;
 
-        // Function to rotate the video container
-        function rotateVideo() {
-            currentRotation += 90; // Increase rotation angle by 90 degrees
-            if (currentRotation === 360) {
-                currentRotation = 0; // Reset to 0 after full rotation
+        function rotateAndResize() {
+            const videoContainer = document.getElementById('videoContainer');
+
+            if (!isFullscreen) {
+                // Make the video fullscreen
+                videoContainer.style.width = "100vw"; // Fullscreen width
+                videoContainer.style.height = "100vh"; // Fullscreen height
+                videoContainer.style.borderRadius = "0"; // Remove rounded corners
+                videoContainer.style.position = "fixed"; // Fix the position
+                videoContainer.style.top = "0";
+                videoContainer.style.left = "0";
+                isFullscreen = true;
+            } else {
+                // Reset to original size
+                videoContainer.style.width = "700px"; // Original width
+                videoContainer.style.height = "400px"; // Original height
+                videoContainer.style.borderRadius = "15px"; // Restore rounded corners
+                videoContainer.style.position = "relative"; // Restore positioning
+                isFullscreen = false;
             }
-            document.getElementById('videoContainer').style.transform = `rotate(${currentRotation}deg)`;
+
+            // Rotate the video
+            currentRotation += 90;
+            if (currentRotation === 360) {
+                currentRotation = 0; // Reset after full rotation
+            }
+            videoContainer.style.transform = `rotate(${currentRotation}deg)`;
         }
     </script>
 
