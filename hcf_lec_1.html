@@ -22,26 +22,14 @@
     </style>
 </head>
 <body>
-    <!DOCTYPE html>
-<html>
-<head>
-    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css">
-</head>
-<body>
-    <div class="plyr__video-embed" id="player">
-        <iframe src="https://www.youtube.com/embed/srNoYnGhXAg" allowfullscreen allow="autoplay"></iframe>
-    </div>
-    <script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
-    <script>
-        const player = new Plyr('#player');
-    </script>
-</body>
-</html>
-
-      </script>
-      
-
     
 
+    <link href="https://vjs.zencdn.net/8.5.3/video-js.css" rel="stylesheet">
+    <video id="my-player" class="video-js" controls preload="auto" width="640" height="360"
+           data-setup='{ "techOrder": ["youtube"], "sources": [{ "type": "video/youtube", "src": "https://www.youtube.com/watch?v=srNoYnGhXAg?rel=0" }] }'>
+    </video>
+    <script src="https://vjs.zencdn.net/8.5.3/video.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/videojs-youtube/dist/Youtube.min.js"></script>
+    
 </body>
 </html>
