@@ -1,35 +1,189 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YouTube Video Player</title>
+    <title>YouTube Video Player with Playback Speed Controls and Rotation</title>
     <style>
         body {
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
             min-height: 100vh;
             margin: 0;
             background-color: #000;
             color: #fff;
         }
+        #player-container {
+            position: relative;
+            width: 480px; /* Set a fixed width for the player */
+            height: 270px; /* Set a fixed height for the player */
+        }
         #player {
-            width: 80%;
-            max-width: 800px;
-            aspect-ratio: 16 / 9;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.5s ease; /* Smooth transition for rotation */
+            display: none; /* Hide video initially */
+        }
+        #loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999; /* Ensure loader stays on top */
+            width: 100%;
+            height: 100%;
+        }
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        #control-buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        #control-buttons button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px;
+            margin: 0 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        #control-buttons button:hover {
+            background-color: #2980b9;
         }
     </style>
 </head>
 <body>
-    
+    <div id="player-container">
+        <!-- Loading Spinner (Initially shown) -->
+        <div id="loading">
+            <div class="spinner"></div>
+        </div>
 
-    <link href="https://vjs.zencdn.net/8.5.3/video-js.css" rel="stylesheet">
-    <video id="my-player" class="video-js" controls preload="auto" width="640" height="360"
-           data-setup='{ "techOrder": ["youtube"], "sources": [{ "type": "video/youtube", "src": "https://www.youtube.com/watch?v=srNoYnGhXAg?rel=0" }] }'>
-    </video>
+        <!-- Video Player (Initially hidden) -->
+        <link href="https://vjs.zencdn.net/8.5.3/video-js.css" rel="stylesheet">
+        <video id="my-player" class="video-js vjs-default-skin" controls preload="auto" width="480" height="270"
+               data-setup='{ "techOrder": ["youtube"], "sources": [{ "type": "video/youtube", "src": "https://www.youtube.com/watch?v=srNoYnGhXAg" }] }'>
+        </video>
+    </div>
+
+    <!-- Control Buttons (Always visible below the video) -->
+    <div id="control-buttons">
+        <button id="speed05x">0.5x</button>
+        <button id="speed1x">1x</button>
+        <button id="speed15x">1.5x</button>
+        <button id="speed2x">2x</button>
+        <button id="rotateBtn">Rotate 90°</button>
+    </div>
+
     <script src="https://vjs.zencdn.net/8.5.3/video.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/videojs-youtube/dist/Youtube.min.js"></script>
-    
+    <script>
+        var player = videojs('my-player');
+
+        // Function to hide the loader and show the player
+        function showPlayer() {
+            document.getElementById('loading').style.display = 'none'; // Hide the loading spinner
+            document.getElementById('my-player').style.display = 'block'; // Show the player
+        }
+
+        // When the video is ready and data is loaded, hide the loader
+        player.on('loadeddata', function() {
+            showPlayer(); // Show player when the video is ready
+        });
+
+        // Set timeout to simulate a loader for 5 seconds (for testing purposes)
+        setTimeout(function() {
+            showPlayer();
+        }, 5000);
+
+        // Set playback speed to 0.5x
+        document.getElementById('speed05x').addEventListener('click', function() {
+            player.playbackRate(0.5);
+        });
+
+        // Set playback speed to 1x
+        document.getElementById('speed1x').addEventListener('click', function() {
+            player.playbackRate(1);
+        });
+
+        // Set playback speed to 1.5x
+        document.getElementById('speed15x').addEventListener('click', function() {
+            player.playbackRate(1.5);
+        });
+
+        // Set playback speed to 2x
+        document.getElementById('speed2x').addEventListener('click', function() {
+            player.playbackRate(2);
+        });
+
+        // Rotate video by 90 degrees each time the button is clicked
+        var rotationAngle = 0; // Initial rotation is 0 degrees
+        document.getElementById('rotateBtn').addEventListener('click', function() {
+            rotationAngle = (rotationAngle + 90) % 360; // Increment by 90 degrees and reset after 360
+            document.getElementById('my-player').style.transform = 'rotate(' + rotationAngle + 'deg)';
+
+            // If the video is rotated 90 degrees, hide all control buttons
+            if (rotationAngle === 90) {
+                document.getElementById('control-buttons').style.display = 'none'; // Hide buttons
+            }
+        });
+    </script>
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
 </body>
 </html>
