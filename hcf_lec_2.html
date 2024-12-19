@@ -9,11 +9,12 @@
         body {
             font-family: Arial, sans-serif;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color:black;
+            background-color: black;
         }
 
         /* Container to hold the video */
@@ -22,6 +23,7 @@
             height: 400px; /* Fixed height for desktops */
             border-radius: 15px; /* Rounded corners */
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Optional: shadow effect */
+            transition: transform 0.5s ease; /* Smooth transition for rotation */
         }
 
         /* Make iframe responsive on smaller devices */
@@ -48,20 +50,52 @@
                 height: 100%;
             }
         }
+
+        /* Rotate button */
+        .rotate-button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: green;
+            color: white;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .rotate-button:hover {
+            background-color: darkgreen;
+        }
     </style>
 </head>
 <body>
 
-    
-    
     <!-- Video container -->
-    <div class="video-container">
+    <div class="video-container" id="videoContainer">
         <iframe src="https://www.youtube.com/embed/zH8SaaxZmME?rel=0" 
                 frameborder="0" 
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                 allowfullscreen>
         </iframe>
     </div>
+
+    <!-- Rotate button -->
+    <button class="rotate-button" onclick="rotateVideo()">Rotate 90°</button>
+
+    <script>
+        // Track the current rotation angle
+        let currentRotation = 0;
+
+        // Function to rotate the video container
+        function rotateVideo() {
+            currentRotation += 90; // Increase rotation angle by 90 degrees
+            if (currentRotation === 360) {
+                currentRotation = 0; // Reset to 0 after full rotation
+            }
+            document.getElementById('videoContainer').style.transform = `rotate(${currentRotation}deg)`;
+        }
+    </script>
 
 </body>
 </html>
